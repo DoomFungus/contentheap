@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(String name) {
-        userRepository.save(new User(name)).subscribe(System.out::println);
+        userRepository.save(new User(name)).subscribe();
     }
 
     @Override
@@ -30,6 +30,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<User> getUser(String name) {
-        return userRepository.findByName(name);
+        return userRepository.findById(name);
     }
 }
