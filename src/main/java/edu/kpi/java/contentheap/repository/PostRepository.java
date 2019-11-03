@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 
-public interface PostRepository extends ReactiveMongoRepository<Post, Integer> {
+public interface PostRepository extends ReactiveMongoRepository<Post, String> {
     @Query("{ tags: { $all: ?0 } }")
     Flux<Post> findByTags(Iterable<Tag> tags);
     @Query("{ author: ?0 }")

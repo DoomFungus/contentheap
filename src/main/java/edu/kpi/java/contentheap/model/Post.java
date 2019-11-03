@@ -1,6 +1,8 @@
 package edu.kpi.java.contentheap.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,9 +11,11 @@ import java.util.List;
 
 @Document
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post {
     @Id
-    private Integer id;
+    private String id;
     @DBRef
     private Content content;
     @DBRef
