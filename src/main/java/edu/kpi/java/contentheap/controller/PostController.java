@@ -9,6 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PostController {
@@ -25,17 +26,13 @@ public class PostController {
     }
 
     @GetMapping(value = "/posts", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Post> getAllPosts(){
-        return postService.getAllPosts();
+    public Flux<Post> getPosts(@RequestParam(required = false) List<String> tagNames,
+                               @RequestParam(required = false) String author){
+        return postService.getPosts(tagNames, author);
     }
 
     @GetMapping(value = "/posts/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Mono<Post> getPost(@PathVariable String id){
         return postService.getPost(id);
-    }
-
-    @GetMapping(value = "/posts/tags", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Post> getPostsByTags(@RequestParam List<String> tagNames){
-        return postService.getPostsByTags(tagNames);
     }
 }

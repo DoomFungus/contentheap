@@ -39,8 +39,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Flux<Post> getAllPosts() {
-        return postRepository.findAll();
+    public Flux<Post> getPosts(List<String> tags, String author) {
+        List<Tag> oTags = tags == null ? List.of() : tags.stream().map(Tag::new).collect(Collectors.toList());
+        User oAuthor = author == null ? null : new User(author);
+        return postRepositoryExt.findPosts(oTags, oAuthor);
     }
 
     @Override
@@ -48,8 +50,5 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id);
     }
 
-    @Override
-    public Flux<Post> getPostsByTags(List<String> tags) {
-        return postRepositoryExt.findPostsByTags(tags.stream().map(Tag::new).collect(Collectors.toList()));
-    }
+
 }
