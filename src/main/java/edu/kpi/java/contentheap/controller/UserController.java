@@ -1,6 +1,6 @@
 package edu.kpi.java.contentheap.controller;
 
-import edu.kpi.java.contentheap.model.User;
+import edu.kpi.java.contentheap.message.UserDTO;
 import edu.kpi.java.contentheap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,12 +24,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/users", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<User> getAllUsers(){
+    public Flux<UserDTO> getAllUsers(){
         return userService.getAllUsers();
     }
 
     @GetMapping(value = "/users/{name}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Mono<User> getUser(@PathVariable String name){
+    public Mono<UserDTO> getUser(@PathVariable String name){
         return userService.getUser(name);
     }
 }

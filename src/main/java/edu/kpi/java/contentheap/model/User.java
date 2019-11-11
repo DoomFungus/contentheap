@@ -1,5 +1,6 @@
 package edu.kpi.java.contentheap.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     private String name;
@@ -19,6 +21,5 @@ public class User {
 
     public User(String name) {
         this.name = name;
-        creationTimestamp = LocalDateTime.now();
     }
 }

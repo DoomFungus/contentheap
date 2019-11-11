@@ -1,5 +1,6 @@
 package edu.kpi.java.contentheap.service.impl;
 
+import edu.kpi.java.contentheap.message.UserDTO;
 import edu.kpi.java.contentheap.model.User;
 import edu.kpi.java.contentheap.repository.UserRepository;
 import edu.kpi.java.contentheap.service.UserService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.LocalDateTime;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,16 +23,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(String name) {
-        userRepository.save(new User(name)).subscribe();
+        userRepository.save(new User(name, LocalDateTime.now())).subscribe();
     }
 
     @Override
-    public Flux<User> getAllUsers() {
-        return userRepository.findAll();
+    public Flux<UserDTO> getAllUsers() {
+        return userRepository.findAll().map(UserDTO::from);
     }
 
     @Override
-    public Mono<User> getUser(String name) {
-        return userRepository.findById(name);
+    public Mono<UserDTO> getUser(String name) {
+        return userRepository.findById(name).map(UserDTO::from);
     }
 }

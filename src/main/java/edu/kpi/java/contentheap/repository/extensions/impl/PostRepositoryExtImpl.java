@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -22,11 +23,19 @@ public class PostRepositoryExtImpl implements PostRepositoryExt {
         this.mongoTemplate = mongoTemplate;
     }
 
+    //TODO: Rework this spaghetti
     @Override
-    public Flux<Post> findPosts(List<Tag> tags, User author) {
+    public Flux<Post> findPosts(List<Tag> tags, User author, LocalDateTime afterDate, LocalDateTime beforeDate) {
         Query query = new Query();
         if(!tags.isEmpty()) query.addCriteria(Criteria.where("tags").all(tags));
         if(author != null) query.addCriteria(Criteria.where("author").is(author));
+        if(afterDate != null && beforeDate != null)
+            query.addCriteria(
+                    new Criteria().andOperator(
+                            Criteria.where("creationTimestamp").gte(afterDate),
+                            Criteria.where("creationTimestamp").lte(beforeDate)));
+            else if(afterDate != null) query.addCriteria(Criteria.where("creationTimestamp").gte(afterDate));
+            else if(beforeDate != null)  query.addCriteria(Criteria.where("creationTimestamp").lte(beforeDate));
         return mongoTemplate.find(query, Post.class);
     }
 }
