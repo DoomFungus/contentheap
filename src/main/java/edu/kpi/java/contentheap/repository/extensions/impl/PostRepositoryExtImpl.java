@@ -27,7 +27,7 @@ public class PostRepositoryExtImpl implements PostRepositoryExt {
     @Override
     public Flux<Post> findPosts(List<Tag> tags, User author, LocalDateTime afterDate, LocalDateTime beforeDate) {
         Query query = new Query();
-        if(!tags.isEmpty()) query.addCriteria(Criteria.where("tags").all(tags));
+        if(tags != null) query.addCriteria(Criteria.where("tags").all(tags));
         if(author != null) query.addCriteria(Criteria.where("author").is(author));
         if(afterDate != null && beforeDate != null)
             query.addCriteria(

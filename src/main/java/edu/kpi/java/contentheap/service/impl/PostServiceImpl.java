@@ -8,6 +8,7 @@ import edu.kpi.java.contentheap.repository.ContentRepository;
 import edu.kpi.java.contentheap.repository.PostRepository;
 import edu.kpi.java.contentheap.repository.extensions.PostRepositoryExt;
 import edu.kpi.java.contentheap.service.PostService;
+import edu.kpi.java.contentheap.utils.TransformationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -45,10 +46,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Flux<PostDTO> getPosts(List<String> tags, String author, ZonedDateTime afterDate, ZonedDateTime beforeDate) {
-        List<Tag> oTags = tags == null ? List.of() : tags.stream().map(Tag::new).collect(Collectors.toList());
-        User oAuthor = author == null ? null : new User(author);
-        LocalDateTime oAfterDate = afterDate == null ? null : afterDate.toLocalDateTime();
-        LocalDateTime oBeforeDate = beforeDate == null ? null : beforeDate.toLocalDateTime();
+        List<Tag> oTags = TransformationUtils.transformNullable(x -> x.stream().map(Tag::new).collect(Collectors.toList()), tags);
+        User oAuthor = TransformationUtils.transformNullable(User::new, author);
+        LocalDateTime oAfterDate = TransformationUtils.transformNullable(ZonedDateTime::toLocalDateTime, afterDate);
+        LocalDateTime oBeforeDate = TransformationUtils.transformNullable(ZonedDateTime::toLocalDateTime, beforeDate);
         return postRepositoryExt.findPosts(oTags, oAuthor, oAfterDate, oBeforeDate).map(PostDTO::from);
     }
 
@@ -56,6 +57,4 @@ public class PostServiceImpl implements PostService {
     public Mono<PostDTO> getPost(String id) {
         return postRepository.findById(id).map(PostDTO::from);
     }
-
-
 }
