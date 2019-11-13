@@ -1,6 +1,6 @@
 package edu.kpi.java.contentheap.controller;
 
-import edu.kpi.java.contentheap.message.PostDTO;
+import edu.kpi.java.contentheap.message.out.PostDTO;
 import edu.kpi.java.contentheap.model.Post;
 import edu.kpi.java.contentheap.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;

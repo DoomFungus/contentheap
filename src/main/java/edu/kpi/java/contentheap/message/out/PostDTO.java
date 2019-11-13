@@ -1,4 +1,4 @@
-package edu.kpi.java.contentheap.message;
+package edu.kpi.java.contentheap.message.out;
 
 import edu.kpi.java.contentheap.model.Content;
 import edu.kpi.java.contentheap.model.Post;

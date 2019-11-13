@@ -1,6 +1,6 @@
 package edu.kpi.java.contentheap.service.impl;
 
-import edu.kpi.java.contentheap.message.UserDTO;
+import edu.kpi.java.contentheap.message.out.UserDTO;
 import edu.kpi.java.contentheap.model.User;
 import edu.kpi.java.contentheap.repository.UserRepository;
 import edu.kpi.java.contentheap.service.UserService;

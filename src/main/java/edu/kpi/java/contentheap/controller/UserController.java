@@ -1,6 +1,6 @@
 package edu.kpi.java.contentheap.controller;
 
-import edu.kpi.java.contentheap.message.UserDTO;
+import edu.kpi.java.contentheap.message.out.UserDTO;
 import edu.kpi.java.contentheap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
