@@ -24,4 +24,5 @@ public class Post {
     @DBRef
     private List<Tag> tags;
     private LocalDateTime creationTimestamp;
+    private Long rating;
 }

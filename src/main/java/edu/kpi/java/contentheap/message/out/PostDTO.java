@@ -15,6 +15,7 @@ public class PostDTO {
     private Content content;
     private UserDTO author;
     private List<Tag> tags;
+    private Long rating;
     private ZonedDateTime creationTimestamp;
 
     public static PostDTO from(Post post){
@@ -24,6 +25,7 @@ public class PostDTO {
         postDTO.author = UserDTO.from(post.getAuthor());
         postDTO.tags = post.getTags();
         postDTO.creationTimestamp = ZonedDateTime.of(post.getCreationTimestamp(), ZoneOffset.UTC);
+        postDTO.rating = post.getRating();
         return postDTO;
     }
 }
